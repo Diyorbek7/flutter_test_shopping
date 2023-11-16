@@ -16,7 +16,7 @@ AppBar appBarWidget(
   return AppBar(
     elevation: 0,
     centerTitle: true,
-    backgroundColor: AppColor.gray,
+    backgroundColor: AppColor.white,
     systemOverlayStyle: const SystemUiOverlayStyle(
       statusBarBrightness: Brightness.dark,
       statusBarIconBrightness: Brightness.light,
@@ -45,6 +45,7 @@ AppBar appBarWidget(
       text: title,
       fontWeight: FontWeight.w700,
       fontSize: 22,
+      color: AppColor.black,
     ),
     actions: [
       GestureDetector(
@@ -72,7 +73,7 @@ AppBar appBarOnlyText(
   return AppBar(
     elevation: 0,
     centerTitle: true,
-    backgroundColor: appColor.white,
+    backgroundColor: AppColor.white,
     leadingWidth: 0,
     leading: Container(),
     title: TextWidget(
@@ -80,7 +81,7 @@ AppBar appBarOnlyText(
       fontWeight: FontWeight.w700,
       fontSize: 22,
       spacing: 0,
-      color: appColor.dark,
+      color: AppColor.black,
     ),
   );
 }
@@ -93,7 +94,7 @@ AppBar appBarNoActionWidget(
   return AppBar(
     elevation: 0,
     centerTitle: false,
-    backgroundColor: appColor.white,
+    backgroundColor: AppColor.white,
     leading: Center(
       child: GestureDetector(
         onTap: () {
@@ -115,7 +116,7 @@ AppBar appBarNoActionWidget(
       text: title,
       fontWeight: FontWeight.w700,
       fontSize: 16,
-      color: appColor.dark,
+      color: AppColor.dark,
       spacing: 0,
       align: TextAlign.left,
     ),

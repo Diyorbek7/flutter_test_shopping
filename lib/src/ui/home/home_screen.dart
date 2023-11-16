@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test_shopping/src/bloc/home/home_bloc.dart';
 import 'package:flutter_test_shopping/src/color/app_color.dart';
+import 'package:flutter_test_shopping/src/dialog/bottom/bottom_dialog.dart';
 import 'package:flutter_test_shopping/src/model/home/home_product_model.dart';
 import 'package:flutter_test_shopping/src/repository/home/home_repository.dart';
 import 'package:flutter_test_shopping/src/ui/home/product_info_screen.dart';
@@ -22,6 +23,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   List<HomeProductModel> data = [];
   int itemCount = 2;
+  String selected = "All";
 
   @override
   void initState() {
@@ -42,8 +44,22 @@ class _HomeScreenState extends State<HomeScreen> {
             data = state.data;
           }
           return Scaffold(
-            backgroundColor: appColor.white,
-            appBar: appBarOnlyText(context, translate("home.product")),
+            backgroundColor: AppColor.white,
+            appBar: appBarWidget(
+              context,
+              translate("home.product"),
+              "filter",
+              () {
+                BottomDialog.showCategoryDialog(
+                  context,
+                  selected,
+                  (type) {
+                    selected = type;
+                    setState(() {});
+                  },
+                );
+              },
+            ),
             body: loading
                 ? const Center(
                     child: CircularProgressIndicator(
@@ -64,7 +80,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           Expanded(
                             child: ProductWidget(
                               onTap: () {
-                                _nextPage(data[index * itemCount]);
+                                _nextPage(
+                                  data[index * itemCount],
+                                  data[index * itemCount].id,
+                                );
                               },
                               data: data[index * itemCount],
                             ),
@@ -75,7 +94,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ? Container()
                                 : ProductWidget(
                                     onTap: () {
-                                      _nextPage(data[index * itemCount + 1]);
+                                      _nextPage(
+                                        data[index * itemCount + 1],
+                                        data[index * itemCount + 1].id,
+                                      );
                                     },
                                     data: data[index * itemCount + 1],
                                   ),
@@ -101,7 +123,7 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  Future<void> _nextPage(all) async {
+  Future<void> _nextPage(all, int index) async {
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -112,7 +134,10 @@ class _HomeScreenState extends State<HomeScreen> {
               create: (context) => HomeBloc(
                 repositoryHome: RepositoryProvider.of<HomeRepository>(context),
               ),
-              child: ProductInfoScreen(data: all),
+              child: ProductInfoScreen(
+                data: all,
+                id: index,
+              ),
             ),
           );
         },

@@ -21,7 +21,7 @@ class TextWidget extends StatelessWidget {
     this.fontWeight = FontWeight.w700,
     this.spacing = 0.5,
     this.height = 0,
-    this.color = AppColor.gray,
+    this.color = AppColor.black,
     this.maxLines,
     this.align,
   }) : super(key: key);

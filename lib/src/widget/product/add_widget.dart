@@ -29,10 +29,10 @@ class AddWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(8),
               color: AppColor.blue,
             ),
-            child: Center(
+            child: const Center(
               child: TextWidget(
                 text: "-",
-                color: appColor.dark,
+                color: AppColor.dark,
               ),
             ),
           ),
@@ -41,7 +41,7 @@ class AddWidget extends StatelessWidget {
           child: TextWidget(
             text: "$count",
             fontSize: 20,
-            color: appColor.dark,
+            color: AppColor.dark,
           ),
         ),
         GestureDetector(
@@ -53,10 +53,10 @@ class AddWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(8),
               color: AppColor.blue,
             ),
-            child: Center(
+            child: const Center(
               child: TextWidget(
                 text: "+",
-                color: appColor.dark,
+                color: AppColor.dark,
               ),
             ),
           ),

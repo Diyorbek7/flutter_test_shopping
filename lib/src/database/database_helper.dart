@@ -48,8 +48,8 @@ class DatabaseHelper {
     return cartTable.getAllCart(await db);
   }
 
-  Future<int> deleteCart(int performerId) async {
-    return cartTable.deleteCart(performerId, await db);
+  Future<int> deleteCart(int productId) async {
+    return cartTable.deleteCart(productId, await db);
   }
 
   Future<int> updateCart(HomeProductModel performer) async {

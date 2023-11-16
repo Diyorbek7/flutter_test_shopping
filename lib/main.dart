@@ -6,6 +6,7 @@ import 'package:flutter_test_shopping/src/bloc/home/home_bloc.dart';
 import 'package:flutter_test_shopping/src/repository/home/home_repository.dart';
 import 'package:flutter_test_shopping/src/service/cache_service.dart';
 import 'package:flutter_test_shopping/src/ui/home/home_screen.dart';
+import 'package:flutter_test_shopping/src/ui/main/main_screen.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 
 Future<void> main() async {
@@ -62,7 +63,7 @@ class MyApp extends StatelessWidget {
             create: (context) => HomeBloc(
               repositoryHome: RepositoryProvider.of<HomeRepository>(context),
             ),
-            child: const HomeScreen(),
+            child: const MainScreen(),
           ),
         ),
       ),

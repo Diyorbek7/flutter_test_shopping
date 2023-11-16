@@ -3,12 +3,12 @@ import 'package:sqflite/sqlite_api.dart';
 
 class CartTable {
   final String tableName = 'order_table';
-  final String columnId = 'id';
-  final String columnProductId = 'product_id';
-  final String columnName = 'name';
+  final String columnId = 'table_id';
+  final String columnProductId = 'id';
+  final String columnName = 'title';
   final String columnImage = 'image';
   final String columnPrice = 'price';
-  final String columnCount = 'count';
+  final String columnCount = 'priceCount';
 
   createTable(Database db) async {
     await db.execute(

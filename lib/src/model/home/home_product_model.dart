@@ -14,7 +14,6 @@ class HomeProductModel {
   final Category category;
   final String image;
   final Rating rating;
-  bool like;
   int priceCount;
 
   HomeProductModel({
@@ -25,8 +24,7 @@ class HomeProductModel {
     required this.category,
     required this.image,
     required this.rating,
-    this.like = false,
-    this.priceCount = 0,
+    this.priceCount = 1,
   });
 
   HomeProductModel copyWith({
@@ -37,7 +35,6 @@ class HomeProductModel {
     Category? category,
     String? image,
     Rating? rating,
-    bool? like,
     int? priceCount,
   }) =>
       HomeProductModel(
@@ -48,7 +45,6 @@ class HomeProductModel {
         category: category ?? this.category,
         image: image ?? this.image,
         rating: rating ?? this.rating,
-        like: like ?? this.like,
         priceCount: priceCount ?? this.priceCount,
       );
 
@@ -65,7 +61,6 @@ class HomeProductModel {
         rating: json["rating"] == null
             ? Rating.fromJson({})
             : Rating.fromJson(json["rating"]),
-        like: json["like"] ?? false,
         priceCount: json["priceCount"] ?? 0,
       );
 
@@ -74,7 +69,7 @@ class HomeProductModel {
         "title": title,
         "price": price,
         "image": image,
-        "like": like,
+        "priceCount": priceCount,
       };
 }
 

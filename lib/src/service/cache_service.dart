@@ -7,16 +7,6 @@ class CacheService {
     preferences = await SharedPreferences.getInstance();
   }
 
-  /// theme
-
-  static void saveTheme(bool theme) {
-    preferences!.setBool("theme", theme);
-  }
-
-  static bool getTheme() {
-    return preferences!.getBool("theme") ?? false;
-  }
-
   /// language
   static void saveLanguage(String language) {
     preferences!.setString("language", language);

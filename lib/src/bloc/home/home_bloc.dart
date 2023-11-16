@@ -57,6 +57,18 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       emit(UnAuthenticated());
       int k = event.count;
       k++;
+      await dataBase.saveCart(
+        HomeProductModel(
+          id: event.data.id,
+          title: event.data.title,
+          price: event.data.price,
+          description: event.data.description,
+          category: event.data.category,
+          image: event.data.image,
+          rating: event.data.rating,
+          priceCount: k,
+        ),
+      );
       emit(PlusCountProductState(k));
     });
 
@@ -67,17 +79,49 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       int k = event.count;
       if (k > 1) {
         k--;
+        await dataBase.updateCart(
+          HomeProductModel(
+            id: event.data.id,
+            title: event.data.title,
+            price: event.data.price,
+            description: event.data.description,
+            category: event.data.category,
+            image: event.data.image,
+            rating: event.data.rating,
+            priceCount: k,
+          ),
+        );
         emit(MinusCountProductState(k, true));
       } else {
+        await dataBase.deleteCart(event.data.id);
         emit(MinusCountProductState(0, false));
       }
     });
 
-    /// add like
-
-    on<ProductAddLikeEvent>((event, emit) async {
-      emit(UnAuthenticated());
-      emit(SuccessAddLikeState(event.like));
+    /// cart all product
+    on<CartProductEvent>((event, emit) async {
+      emit(LoadingCartAllState());
+      List<HomeProductModel> response = await repositoryHome.product();
+      double price = 0;
+      int count = 0;
+      bool add = false;
+      for (int i = 0; i < response.length; i++) {
+        price += (response[i].price * response[i].priceCount);
+      }
+      for (int i = 0; i < response.length; i++) {
+        if (event.id == response[i].id) {
+          count = response[i].priceCount;
+          count != 0 ? add = true : add = false;
+        }
+      }
+      emit(
+        SuccessCartAllState(
+          response,
+          price,
+          add,
+          count,
+        ),
+      );
     });
   }
 }

@@ -16,11 +16,12 @@ class HomeProductEvent extends HomeEvent {
 
 class ProductAddEvent extends HomeEvent {
   final bool add;
+  final HomeProductModel data;
 
-  ProductAddEvent(this.add);
+  ProductAddEvent(this.add, this.data);
 
   @override
-  List<Object> get props => [add];
+  List<Object> get props => [add, data];
 }
 
 /// product plus count event
@@ -56,13 +57,13 @@ class ProductMinusCountEvent extends HomeEvent {
       ];
 }
 
-/// product add like event
+/// cart product event
 
-class ProductAddLikeEvent extends HomeEvent {
-  final bool like;
+class CartProductEvent extends HomeEvent {
+  final int id;
 
-  ProductAddLikeEvent(this.like);
+  CartProductEvent(this.id);
 
   @override
-  List<Object> get props => [like];
+  List<Object> get props => [id];
 }

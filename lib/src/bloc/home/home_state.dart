@@ -70,13 +70,33 @@ class MinusCountProductState extends HomeState {
   List<Object?> get props => [count, add];
 }
 
-/// success add product state
+/// success cart all product state
 
-class SuccessAddLikeState extends HomeState {
-  final bool like;
+class SuccessCartAllState extends HomeState {
+  final List<HomeProductModel> data;
+  final double price;
+  final bool add;
+  final int count;
 
-  SuccessAddLikeState(this.like);
+  SuccessCartAllState(
+    this.data,
+    this.price,
+    this.add,
+    this.count,
+  );
 
   @override
-  List<Object?> get props => [like];
+  List<Object?> get props => [
+        data,
+        price,
+        add,
+        count,
+      ];
+}
+
+/// loading cart all product state
+
+class LoadingCartAllState extends HomeState {
+  @override
+  List<Object?> get props => [];
 }
