@@ -1,4 +1,3 @@
-import 'package:flutter_test_shopping/src/model/home/home_product_model.dart';
 import 'package:flutter_test_shopping/src/model/http_result.dart';
 import 'package:flutter_test_shopping/src/provider/category/category_provider.dart';
 

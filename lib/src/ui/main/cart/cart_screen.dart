@@ -44,7 +44,7 @@ class _CartScreenState extends State<CartScreen> {
           _getData();
         }
         return Scaffold(
-          appBar: appBarNoActionWidget(context, "Cart"),
+          appBar: appBarOnlyText(context, "Cart"),
           body: loading
               ? const Center(
                   child: CircularProgressIndicator(),

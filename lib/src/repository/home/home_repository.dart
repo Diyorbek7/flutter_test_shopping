@@ -10,6 +10,10 @@ abstract class RepositoryHome {
 
   /// cart database
   Future<List<HomeProductModel>> product();
+
+  /// home category
+
+  Future<HttpResult> homeCategory(String category);
 }
 
 class HomeRepository implements RepositoryHome {
@@ -26,5 +30,11 @@ class HomeRepository implements RepositoryHome {
   @override
   Future<List<HomeProductModel>> product() {
     return databaseHelper.getAllCart();
+  }
+
+  /// home category
+  @override
+  Future<HttpResult> homeCategory(String category) {
+    return homeProvider.homeCategory(category);
   }
 }

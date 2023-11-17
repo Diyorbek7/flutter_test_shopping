@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_test_shopping/src/model/http_result.dart';
-import 'package:flutter_translate/flutter_translate.dart';
-import 'package:intl/intl.dart';
 
 class Utils {
   static double height(BuildContext context) {
@@ -22,19 +20,14 @@ class Utils {
 
   static String errorMessage(HttpResult response) {
     try {
-      String msg = response.result["message"] ?? translate("error.error_title");
+      String msg = response.result["message"] ?? "Error";
       return msg;
     } catch (_) {
-      return translate("error.server_error_title");
+      return "Server error";
     }
   }
 
-  static String priceFormat(double price) {
-    int k = price.toInt();
-    if (k.toDouble() == price) {
-      return NumberFormat("#,##0", "en").format(price);
-    } else {
-      return NumberFormat.currency(locale: "en", symbol: '').format(price);
-    }
+  static String getDateHourFormat(DateTime dateTime) {
+    return "${numberFormat(dateTime.day)}.${numberFormat(dateTime.month)}.${dateTime.year} ${numberFormat(dateTime.hour)}:${numberFormat(dateTime.minute)}";
   }
 }

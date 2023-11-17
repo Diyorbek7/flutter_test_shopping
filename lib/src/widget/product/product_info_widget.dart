@@ -5,7 +5,6 @@ import 'package:flutter_test_shopping/src/model/home/home_product_model.dart';
 import 'package:flutter_test_shopping/src/utils/utils.dart';
 import 'package:flutter_test_shopping/src/widget/app/text_widget.dart';
 import 'package:flutter_test_shopping/src/widget/product/star_widget.dart';
-import 'package:flutter_translate/flutter_translate.dart';
 
 class ProductInfoWidget extends StatelessWidget {
   final HomeProductModel data;
@@ -71,7 +70,7 @@ class ProductInfoWidget extends StatelessWidget {
             Expanded(
               child: TextWidget(
                 text:
-                    "${translate("home.count")} ${data.rating.count} ${translate("home.ta")}",
+                    "Count ${data.rating.count} pc}",
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
                 color: AppColor.dark,
@@ -89,7 +88,7 @@ class ProductInfoWidget extends StatelessWidget {
           align: TextAlign.left,
         ),
         TextWidget(
-          text: translate("home.desc"),
+          text: "Info",
           fontSize: 20,
           color: AppColor.dark,
           margin: EdgeInsets.symmetric(vertical: 16 * h),

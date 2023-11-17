@@ -7,9 +7,16 @@ class HomeProvider extends ApiProvider {
     String url = "${baseUrl}products";
     return getRequest(url);
   }
+
   /// category
   Future<HttpResult> category() {
     String url = "${baseUrl}products/categories";
+    return getRequest(url);
+  }
+
+  /// home category
+  Future<HttpResult> homeCategory(String category) {
+    String url = "${baseUrl}products/category/$category";
     return getRequest(url);
   }
 }

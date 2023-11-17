@@ -5,7 +5,6 @@ import 'package:flutter_test_shopping/src/model/category/category_model.dart';
 import 'package:flutter_test_shopping/src/model/http_result.dart';
 import 'package:flutter_test_shopping/src/repository/category/category_repository.dart';
 import 'package:flutter_test_shopping/src/utils/utils.dart';
-import 'package:flutter_translate/flutter_translate.dart';
 import 'package:equatable/equatable.dart';
 
 part 'category_event.dart';
@@ -32,9 +31,9 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
             emit(ErrorCategoryState(Utils.errorMessage(response)));
           }
         } else if (response.status == -1) {
-          emit(ErrorCategoryState(translate("error.network_error")));
+          emit(ErrorCategoryState("Network error"));
         } else if (response.status == -2) {
-          emit(ErrorCategoryState(translate("error.server_error")));
+          emit(ErrorCategoryState("Server error"));
         } else {
           emit(ErrorCategoryState(Utils.errorMessage(response)));
         }

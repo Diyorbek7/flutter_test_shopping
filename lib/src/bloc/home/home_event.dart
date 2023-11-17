@@ -67,3 +67,14 @@ class CartProductEvent extends HomeEvent {
   @override
   List<Object> get props => [id];
 }
+
+/// home category event
+
+class HomeCategoryEvent extends HomeEvent {
+  final String category;
+
+  HomeCategoryEvent(this.category);
+
+  @override
+  List<Object> get props => [category];
+}

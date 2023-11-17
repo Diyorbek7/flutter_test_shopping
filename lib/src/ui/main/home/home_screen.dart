@@ -5,13 +5,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test_shopping/src/bloc/home/home_bloc.dart';
 import 'package:flutter_test_shopping/src/color/app_color.dart';
 import 'package:flutter_test_shopping/src/dialog/bottom/bottom_dialog.dart';
+import 'package:flutter_test_shopping/src/dialog/center/center_dialog.dart';
 import 'package:flutter_test_shopping/src/model/home/home_product_model.dart';
 import 'package:flutter_test_shopping/src/repository/home/home_repository.dart';
-import 'package:flutter_test_shopping/src/ui/home/product_info_screen.dart';
+import 'package:flutter_test_shopping/src/ui/main/home/product_info_screen.dart';
 import 'package:flutter_test_shopping/src/utils/utils.dart';
 import 'package:flutter_test_shopping/src/widget/app/appbar_widget.dart';
 import 'package:flutter_test_shopping/src/widget/product/product_widget.dart';
-import 'package:flutter_translate/flutter_translate.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -23,11 +23,11 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   List<HomeProductModel> data = [];
   int itemCount = 2;
-  String selected = "All";
+  String selected = "";
 
   @override
   void initState() {
-    _getData();
+    _getData(false);
     super.initState();
   }
 
@@ -36,7 +36,16 @@ class _HomeScreenState extends State<HomeScreen> {
     double h = Utils.height(context);
     double w = Utils.width(context);
     return BlocListener<HomeBloc, HomeState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is ErrorHomeProductState) {
+          CenterDialog.showCustom(
+            context,
+            AppColor.red,
+            "Error",
+            state.msg,
+          );
+        }
+      },
       child: BlocBuilder<HomeBloc, HomeState>(
         builder: (context, state) {
           bool loading = state is LoadingHomeProductState;
@@ -47,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
             backgroundColor: AppColor.white,
             appBar: appBarWidget(
               context,
-              translate("home.product"),
+              "Product",
               "filter",
               () {
                 BottomDialog.showCategoryDialog(
@@ -55,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   selected,
                   (type) {
                     selected = type;
-                    setState(() {});
+                    _getData(true);
                   },
                 );
               },
@@ -115,10 +124,10 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void _getData() {
+  void _getData(bool category) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       BlocProvider.of<HomeBloc>(context).add(
-        HomeProductEvent(),
+        category ? HomeCategoryEvent(selected) : HomeProductEvent(),
       );
     });
   }

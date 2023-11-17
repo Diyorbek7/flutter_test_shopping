@@ -6,7 +6,6 @@ import 'package:flutter_test_shopping/src/model/home/home_product_model.dart';
 import 'package:flutter_test_shopping/src/model/http_result.dart';
 import 'package:flutter_test_shopping/src/repository/home/home_repository.dart';
 import 'package:flutter_test_shopping/src/utils/utils.dart';
-import 'package:flutter_translate/flutter_translate.dart';
 import 'package:equatable/equatable.dart';
 
 part 'home_event.dart';
@@ -35,9 +34,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
             emit(ErrorHomeProductState(Utils.errorMessage(response)));
           }
         } else if (response.status == -1) {
-          emit(ErrorHomeProductState(translate("error.network_error")));
+          emit(ErrorHomeProductState("Network error"));
         } else if (response.status == -2) {
-          emit(ErrorHomeProductState(translate("error.server_error")));
+          emit(ErrorHomeProductState("Server error"));
         } else {
           emit(ErrorHomeProductState(Utils.errorMessage(response)));
         }
@@ -123,5 +122,29 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         ),
       );
     });
+
+    /// home category
+    on<HomeCategoryEvent>(
+      (event, emit) async {
+        emit(LoadingHomeProductState());
+        HttpResult response = await repositoryHome.homeCategory(event.category);
+        if (response.isSuccess) {
+          List<HomeProductModel> data = homeProductModelFromJson(
+            json.encode(response.result),
+          );
+          if (data.isNotEmpty) {
+            emit(SuccessHomeProductState(data));
+          } else {
+            emit(ErrorHomeProductState(Utils.errorMessage(response)));
+          }
+        } else if (response.status == -1) {
+          emit(ErrorHomeProductState("Network error"));
+        } else if (response.status == -2) {
+          emit(ErrorHomeProductState("Server error"));
+        } else {
+          emit(ErrorHomeProductState(Utils.errorMessage(response)));
+        }
+      },
+    );
   }
 }

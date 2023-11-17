@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test_shopping/src/color/app_color.dart';
-import 'package:flutter_test_shopping/src/ui/cart/cart_screen.dart';
-import 'package:flutter_test_shopping/src/ui/home/home_screen.dart';
+import 'package:flutter_test_shopping/src/ui/main/admin/admin_screen.dart';
+import 'package:flutter_test_shopping/src/ui/main/cart/cart_screen.dart';
+import 'package:flutter_test_shopping/src/ui/main/home/home_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -16,7 +17,7 @@ class _MainScreenState extends State<MainScreen> {
   static const List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
     CartScreen(),
-    // ProfileScreen(),
+    AdminScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -43,7 +44,7 @@ class _MainScreenState extends State<MainScreen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(CupertinoIcons.profile_circled),
-            label: 'Profil',
+            label: 'Admin',
           ),
         ],
         currentIndex: _selectedIndex,

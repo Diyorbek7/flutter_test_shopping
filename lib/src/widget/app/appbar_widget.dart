@@ -22,25 +22,6 @@ AppBar appBarWidget(
       statusBarIconBrightness: Brightness.light,
       statusBarColor: Colors.transparent,
     ),
-    leading: Center(
-      child: GestureDetector(
-        onTap: () {
-          Navigator.pop(context);
-        },
-        child: Container(
-          height: 24 * h,
-          width: 24 * h,
-          color: Colors.transparent,
-          child: Center(
-            child: SvgPicture.asset(
-              "assets/icons/back.svg",
-              height: 20 * h,
-              width: 20 * h,
-            ),
-          ),
-        ),
-      ),
-    ),
     title: TextWidget(
       text: title,
       fontWeight: FontWeight.w700,
@@ -50,15 +31,13 @@ AppBar appBarWidget(
     actions: [
       GestureDetector(
         onTap: onTap,
-        child: Center(
-          child: Container(
-            color: Colors.transparent,
-            margin: EdgeInsets.only(right: 20 * w),
-            child: SvgPicture.asset(
-              "assets/icons/$svg.svg",
-              height: 20 * h,
-              width: 20 * h,
-            ),
+        child: Container(
+          color: Colors.transparent,
+          margin: EdgeInsets.only(right: 20 * w),
+          child: SvgPicture.asset(
+            "assets/icons/$svg.svg",
+            height: 20 * h,
+            width: 20 * h,
           ),
         ),
       ),
@@ -104,10 +83,8 @@ AppBar appBarNoActionWidget(
           height: 24 * h,
           width: 24 * h,
           color: Colors.transparent,
-          child: Center(
-            child: SvgPicture.asset(
-              "assets/icons/back.svg",
-            ),
+          child: SvgPicture.asset(
+            "assets/icons/back.svg",
           ),
         ),
       ),
@@ -115,7 +92,7 @@ AppBar appBarNoActionWidget(
     title: TextWidget(
       text: title,
       fontWeight: FontWeight.w700,
-      fontSize: 16,
+      fontSize: 20,
       color: AppColor.dark,
       spacing: 0,
       align: TextAlign.left,

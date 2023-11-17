@@ -11,7 +11,6 @@ import 'package:flutter_test_shopping/src/widget/app/button_widget.dart';
 import 'package:flutter_test_shopping/src/widget/app/text_widget.dart';
 import 'package:flutter_test_shopping/src/widget/product/add_widget.dart';
 import 'package:flutter_test_shopping/src/widget/product/product_info_widget.dart';
-import 'package:flutter_translate/flutter_translate.dart';
 
 class ProductInfoScreen extends StatefulWidget {
   final HomeProductModel data;
@@ -106,9 +105,9 @@ class _ProductInfoScreenState extends State<ProductInfoScreen> {
                               },
                               color: AppColor.blue,
                               splashColor: AppColor.dark,
-                              widget: Center(
+                              widget: const Center(
                                 child: TextWidget(
-                                  text: translate("home.add"),
+                                  text: "Add",
                                   color: AppColor.white,
                                 ),
                               ),
