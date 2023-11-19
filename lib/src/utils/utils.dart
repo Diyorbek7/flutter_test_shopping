@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_test_shopping/src/model/http_result.dart';
+import 'package:map_launcher/map_launcher.dart';
 
 class Utils {
   static double height(BuildContext context) {
@@ -29,5 +30,17 @@ class Utils {
 
   static String getDateHourFormat(DateTime dateTime) {
     return "${numberFormat(dateTime.day)}.${numberFormat(dateTime.month)}.${dateTime.year} ${numberFormat(dateTime.hour)}:${numberFormat(dateTime.minute)}";
+  }
+
+  static Future<void> navigateTo({
+    required double latitude,
+    required double longitude,
+    required String label,
+  }) async {
+    final availableMaps = await MapLauncher.installedMaps;
+    await availableMaps.first.showMarker(
+      coords: Coords(latitude, longitude),
+      title: label,
+    );
   }
 }

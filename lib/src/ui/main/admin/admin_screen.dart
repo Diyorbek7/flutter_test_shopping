@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test_shopping/src/bloc/cart/cart_bloc.dart';
 import 'package:flutter_test_shopping/src/repository/cart/cart_repository.dart';
+import 'package:flutter_test_shopping/src/ui/main/admin/all_user_screen.dart';
 import 'package:flutter_test_shopping/src/ui/main/admin/cart_user_screen.dart';
 import 'package:flutter_test_shopping/src/utils/utils.dart';
 import 'package:flutter_test_shopping/src/widget/app/appbar_widget.dart';
@@ -28,7 +29,7 @@ class _AdminScreenState extends State<AdminScreen> {
           ButtonWidget(
             height: 48 * h,
             onTap: () {
-              _nextPage();
+              _nextPage(0);
             },
             widget: Row(
               children: [
@@ -47,12 +48,34 @@ class _AdminScreenState extends State<AdminScreen> {
             padding: EdgeInsets.symmetric(horizontal: 16 * w),
             margin: EdgeInsets.all(24 * h),
           ),
+          ButtonWidget(
+            height: 48 * h,
+            onTap: () {
+              _nextPage(1);
+            },
+            widget: Row(
+              children: [
+                const Expanded(
+                  child: TextWidget(
+                    text: "All user",
+                    align: TextAlign.left,
+                  ),
+                ),
+                Icon(
+                  CupertinoIcons.right_chevron,
+                  size: 24 * h,
+                ),
+              ],
+            ),
+            padding: EdgeInsets.symmetric(horizontal: 16 * w),
+            margin: EdgeInsets.symmetric(horizontal: 24 * w),
+          ),
         ],
       ),
     );
   }
 
-  Future<void> _nextPage() async {
+  Future<void> _nextPage(int index) async {
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -63,7 +86,8 @@ class _AdminScreenState extends State<AdminScreen> {
               create: (context) => CartBloc(
                 repositoryCart: RepositoryProvider.of<CartRepository>(context),
               ),
-              child: const CartUserScreen(),
+              child:
+                  index == 0 ? const CartUserScreen() : const AllUserScreen(),
             ),
           );
         },

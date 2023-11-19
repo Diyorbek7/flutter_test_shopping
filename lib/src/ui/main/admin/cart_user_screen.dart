@@ -6,8 +6,12 @@ import 'package:flutter_test_shopping/src/bloc/cart/cart_bloc.dart';
 import 'package:flutter_test_shopping/src/color/app_color.dart';
 import 'package:flutter_test_shopping/src/dialog/center/center_dialog.dart';
 import 'package:flutter_test_shopping/src/model/cart/cart_model.dart';
+import 'package:flutter_test_shopping/src/model/user/all_user_model.dart';
+import 'package:flutter_test_shopping/src/repository/cart/cart_repository.dart';
+import 'package:flutter_test_shopping/src/ui/main/admin/user_all_info_screen.dart';
 import 'package:flutter_test_shopping/src/utils/utils.dart';
 import 'package:flutter_test_shopping/src/widget/app/appbar_widget.dart';
+import 'package:flutter_test_shopping/src/widget/app/button_widget.dart';
 import 'package:flutter_test_shopping/src/widget/app/text_widget.dart';
 import 'package:flutter_test_shopping/src/widget/cart/cart_info_widget.dart';
 
@@ -20,6 +24,7 @@ class CartUserScreen extends StatefulWidget {
 
 class _CartUserScreenState extends State<CartUserScreen> {
   List<CartUserModel> data = [];
+  List<AllUserModel> dataAllUser = [];
 
   @override
   void initState() {
@@ -47,6 +52,7 @@ class _CartUserScreenState extends State<CartUserScreen> {
           bool loading = state is LoadingCartUserState;
           if (state is SuccessCartUserState) {
             data = state.data;
+            dataAllUser = state.dataAllUser;
           }
           return Scaffold(
             appBar: appBarNoActionWidget(context, "User cart"),
@@ -85,8 +91,9 @@ class _CartUserScreenState extends State<CartUserScreen> {
                                   text: data[index].id.toString(),
                                 ),
                                 CartInfoWidget(
-                                  title: "User ID:",
-                                  text: data[index].userId.toString(),
+                                  title: "Username:",
+                                  text: dataAllUser[data[index].userId - 1]
+                                      .username,
                                 ),
                                 CartInfoWidget(
                                   title: "Date:",
@@ -136,6 +143,42 @@ class _CartUserScreenState extends State<CartUserScreen> {
                                     return SizedBox(height: 4 * h);
                                   },
                                 ),
+                                ButtonWidget(
+                                  height: 48 * h,
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) {
+                                          return RepositoryProvider(
+                                            create: (context) =>
+                                                CartRepository(),
+                                            child: BlocProvider(
+                                              create: (context) => CartBloc(
+                                                repositoryCart:
+                                                    RepositoryProvider.of<
+                                                            CartRepository>(
+                                                        context),
+                                              ),
+                                              child: UserAllInfoScreen(
+                                                username: dataAllUser[
+                                                        data[index].userId - 1]
+                                                    .username,
+                                                id: data[index].userId,
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    );
+                                  },
+                                  widget: const Center(
+                                    child: TextWidget(text: "User all info"),
+                                  ),
+                                  margin: EdgeInsets.only(top: 12 * h),
+                                  color: AppColor.shimmerBaseColor,
+                                  splashColor: AppColor.black,
+                                ),
                               ],
                             ),
                           );
@@ -154,7 +197,7 @@ class _CartUserScreenState extends State<CartUserScreen> {
     WidgetsBinding.instance.addPostFrameCallback(
       (_) {
         BlocProvider.of<CartBloc>(context).add(
-          CartUserEvent(),
+          CartAllUserEvent(),
         );
       },
     );
